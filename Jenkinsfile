@@ -3,7 +3,9 @@
 @Library('github.com/StayFriends/stayfriends-pipeline-library@master')
 
 def utils = new io.fabric8.Utils()
+
 def canaryVersion = "2.1.0.${env.BUILD_NUMBER}"
+
 def label = "buildpod.${env.JOB_NAME}.${env.BUILD_NUMBER}".replace('-', '_').replace('/', '_')
 
 podTemplate(label: label, serviceAccount: 'jenkins', containers: [
@@ -19,13 +21,11 @@ podTemplate(label: label, serviceAccount: 'jenkins', containers: [
     ]) {
 
 	node(label) {
-	    def envStage = utils.environmentNamespace('staging')
 
 	    //git GIT_URL
 	    checkout scm
 
-		stage 'Build docker image'
-		def newVersion = performCanaryRelease {
+		sfDockerBuildRelease {
 			version = canaryVersion
 		}
 	}
