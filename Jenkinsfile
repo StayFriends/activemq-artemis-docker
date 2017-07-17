@@ -19,20 +19,21 @@ podTemplate(label: label, serviceAccount: 'jenkins', containers: [
             [$class: 'HostPathVolume', mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock']
     ]) {
 
-	node(label) {
+    node(label) {
 
-	    //git GIT_URL
-	    checkout scm
+        //git GIT_URL
+        checkout scm
 
-		def imageVersion = "2.1.0.${env.BUILD_NUMBER}"
-		def imageNamespace = "stayfriends"
-		def imageName = "activemq-artemis"
-      	def newImageName = "${env.FABRIC8_DOCKER_REGISTRY_SERVICE_HOST}:${env.FABRIC8_DOCKER_REGISTRY_SERVICE_PORT}/${imageNamespace}/${imageName}:${imageVersion}"
+        container('client') {
+            def imageVersion = "2.1.0.${env.BUILD_NUMBER}"
+            def imageNamespace = "stayfriends"
+            def imageName = "activemq-artemis"
+            def newImageName = "${env.FABRIC8_DOCKER_REGISTRY_SERVICE_HOST}:${env.FABRIC8_DOCKER_REGISTRY_SERVICE_PORT}/${imageNamespace}/${imageName}:${imageVersion}"
 
-		env.setProperty('VERSION',imageVersion)
+            env.setProperty('VERSION',imageVersion)
 
-		sh "docker build -t ${newImageName} ."
-		sh "docker push ${newImageName}"
-
-	}
+            sh "docker build -t ${newImageName} ."
+            sh "docker push ${newImageName}"
+        }
+    }
 }
