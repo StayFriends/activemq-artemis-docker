@@ -24,12 +24,12 @@ podTemplate(label: label, serviceAccount: 'jenkins', containers: [
 	    //git GIT_URL
 	    checkout scm
 
-		def canaryVersion = "2.1.0.${env.BUILD_NUMBER}"
+		def imageVersion = "2.1.0.${env.BUILD_NUMBER}"
 		def imageNamespace = "stayfriends"
 		def imageName = "activemq-artemis"
-      	def newImageName = "${env.FABRIC8_DOCKER_REGISTRY_SERVICE_HOST}:${env.FABRIC8_DOCKER_REGISTRY_SERVICE_PORT}/${imageNamespace}/${imageName}:${newVersion}"
+      	def newImageName = "${env.FABRIC8_DOCKER_REGISTRY_SERVICE_HOST}:${env.FABRIC8_DOCKER_REGISTRY_SERVICE_PORT}/${imageNamespace}/${imageName}:${imageVersion}"
 
-		env.setProperty('VERSION',canaryVersion)
+		env.setProperty('VERSION',imageVersion)
 
 		sh "docker build -t ${newImageName} ."
 		sh "docker push ${newImageName}"
