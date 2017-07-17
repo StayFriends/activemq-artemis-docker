@@ -4,7 +4,6 @@
 
 def utils = new io.fabric8.Utils()
 
-def canaryVersion = "2.1.0.${env.BUILD_NUMBER}"
 
 def label = "buildpod.${env.JOB_NAME}.${env.BUILD_NUMBER}".replace('-', '_').replace('/', '_')
 
@@ -25,8 +24,15 @@ podTemplate(label: label, serviceAccount: 'jenkins', containers: [
 	    //git GIT_URL
 	    checkout scm
 
-		sfDockerBuildRelease {
-			version = canaryVersion
-		}
+		def canaryVersion = "2.1.0.${env.BUILD_NUMBER}"
+		def imageNamespace = "stayfriends"
+		def imageName = "activemq-artemis"
+      	def newImageName = "${env.FABRIC8_DOCKER_REGISTRY_SERVICE_HOST}:${env.FABRIC8_DOCKER_REGISTRY_SERVICE_PORT}/${imageNamespace}/${imageName}:${newVersion}"
+
+		env.setProperty('VERSION',canaryVersion)
+
+		sh "docker build -t ${newImageName} ."
+		sh "docker push ${newImageName}"
+
 	}
 }
