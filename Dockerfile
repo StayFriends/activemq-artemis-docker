@@ -44,7 +44,7 @@ RUN cd /var/lib && \
     --user artemis \
     --password simetraehcapa \
     --role amq \
-    --require-login \
+    --allow-anonymous \
     --cluster-user artemisCluster \
     --cluster-password simetraehcaparetsulc
 
