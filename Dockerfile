@@ -61,6 +61,16 @@ RUN mkdir -p /opt/assets
 COPY assets/merge.xslt /opt/assets
 COPY assets/enable-jmx.xml /opt/assets
 
+
+# jmx exporter
+RUN mkdir -p /opt/jmx-exporter \
+ && curl http://central.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.10/jmx_prometheus_javaagent-0.10.jar \
+         -o /opt/jmx-exporter/jmx-exporter.jar \
+ && chmod 444 /opt/jmx-exporter/jmx-exporter.jar
+ADD assets/jmx_exporter_config.yml /opt/jmx-exporter
+EXPOSE 9779
+
+
 # Web Server
 EXPOSE 8161
 

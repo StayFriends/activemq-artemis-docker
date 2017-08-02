@@ -55,6 +55,14 @@ EOF
   mv /tmp/broker-merge.xml $CONFIG_PATH/broker.xml
 fi
 
+# jmx exporter
+cat << 'EOF' >> $CONFIG_PATH/artemis.profile
+  if [ "$1" = "run" ]; then
+    JAVA_ARGS="$JAVA_ARGS -javaagent:/opt/jmx-exporter/jmx-exporter.jar=9779:/opt/jmx-exporter/jmx_exporter_config.yml"
+  fi
+EOF
+
+
 function performance-journal {
   if [[ "$ARTEMIS_PERF_JOURNAL" = "AUTO" || "$ARTEMIS_PERF_JOURNAL" = "ALWAYS" ]]; then
 
