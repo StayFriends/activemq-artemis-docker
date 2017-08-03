@@ -25,7 +25,7 @@ podTemplate(label: label, serviceAccount: 'jenkins', containers: [
         checkout scm
 
         container('client') {
-            def imageVersion = "2.1.0.${env.BUILD_NUMBER}"
+            def imageVersion = "2.2.0.${env.BUILD_NUMBER}"
             def imageNamespace = "stayfriends"
             def imageName = "activemq-artemis"
             def newImageName = "${env.FABRIC8_DOCKER_REGISTRY_SERVICE_HOST}:${env.FABRIC8_DOCKER_REGISTRY_SERVICE_PORT}/${imageNamespace}/${imageName}:${imageVersion}"
