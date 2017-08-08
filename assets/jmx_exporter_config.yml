@@ -4,4 +4,6 @@ lowercaseOutputLabelNames: true
 whitelistObjectNames:
   - 'org.apache.activemq.artemis:*'
 rules:
-- pattern: ".*"
+- pattern: "^org.apache.activemq.artemis<.*>MessageCount:"
+- pattern: "^org.apache.activemq.artemis<.*>MessagesAcknowledged:"
+- pattern: "^org.apache.activemq.artemis<.*>ConsumerCount:"
