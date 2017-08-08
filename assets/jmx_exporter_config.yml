@@ -7,3 +7,7 @@ rules:
 - pattern: "^org.apache.activemq.artemis<.*>MessageCount:"
 - pattern: "^org.apache.activemq.artemis<.*>MessagesAcknowledged:"
 - pattern: "^org.apache.activemq.artemis<.*>ConsumerCount:"
+- pattern: "^org.apache.activemq.artemis<.*>TotalMessageCount:"
+- pattern: "^org.apache.activemq.artemis<.*>TotalMessagesAcknowledged:"
+- pattern: "^org.apache.activemq.artemis<.*>TotalConsumerCount:"
+- pattern: "^org.apache.activemq.artemis<.*>ConnectionCount:"
