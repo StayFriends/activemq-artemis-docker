@@ -3,6 +3,7 @@ lowercaseOutputName: true
 lowercaseOutputLabelNames: true
 whitelistObjectNames:
   - 'org.apache.activemq.artemis:*'
+  - 'java.lang:*'
 rules:
 - pattern: "^org.apache.activemq.artemis<.*>MessageCount:"
 - pattern: "^org.apache.activemq.artemis<.*>MessagesAcknowledged:"
@@ -11,3 +12,7 @@ rules:
 - pattern: "^org.apache.activemq.artemis<.*>TotalMessagesAcknowledged:"
 - pattern: "^org.apache.activemq.artemis<.*>TotalConsumerCount:"
 - pattern: "^org.apache.activemq.artemis<.*>ConnectionCount:"
+- pattern: "^org.apache.activemq.artemis<.*>AddressSize:"
+- pattern: "^org.apache.activemq.artemis<.*>NumberOfPages:"
+- pattern: "^java.lang<.*>ProcessCpuLoad:"
+- pattern: "^java.lang<.*>ProcessCpuTime:"
