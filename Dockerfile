@@ -48,6 +48,9 @@ RUN cd /var/lib && \
     --cluster-user artemisCluster \
     --cluster-password simetraehcaparetsulc
 
+# Fix broken broker.xml
+RUN sed -i "s/urn:activemq:core /urn:activemq:core/" /var/lib/artemis/etc/broker.xml
+
 # Ports are only exposed with an explicit argument, there is no need to binding
 # the web console to localhost
 RUN cd /var/lib/artemis/etc && \
