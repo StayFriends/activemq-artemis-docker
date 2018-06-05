@@ -153,6 +153,5 @@ VOLUME ["/var/lib/artemis/etc-override"]
 VOLUME ["/var/lib/artemis/lock"]
 
 COPY assets/docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["artemis-server"]
