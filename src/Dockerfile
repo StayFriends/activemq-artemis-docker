@@ -94,7 +94,9 @@ ARG ACTIVEMQ_ARTEMIS_VERSION
 ENV ACTIVEMQ_ARTEMIS_VERSION=$ACTIVEMQ_ARTEMIS_VERSION
 
 # add user and group for artemis
-RUN groupadd -g 1000 -r artemis && useradd -r -u 1000 -g artemis artemis
+#RUN groupadd -g 1000 -r artemis && useradd -r -u 1000 -g artemis artemis
+# switched from 1000 to 999 because useradd was without uid/gid before and files in PV(C) have uid 999 as owner
+RUN groupadd -g 999 -r artemis && useradd -r -u 999 -g artemis artemis
 
 RUN apt-get -qq -o=Dpkg::Use-Pty=0 update && \
   apt-get -qq -o=Dpkg::Use-Pty=0 install -y --no-install-recommends \
