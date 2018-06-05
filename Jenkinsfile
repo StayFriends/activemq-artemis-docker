@@ -33,7 +33,7 @@ podTemplate(label: label, serviceAccount: 'jenkins', containers: [
 
             env.setProperty('VERSION',imageVersion)
 
-            sh "docker build --build-arg ACTIVEMQ_ARTEMIS_VERSION=${artemisVersion} -t ${newImageName} ."
+            sh "docker build --build-arg ACTIVEMQ_ARTEMIS_VERSION=${artemisVersion} -t ${newImageName} src ."
             sh "docker push ${newImageName}"
         }
     }
