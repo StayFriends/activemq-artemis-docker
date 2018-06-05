@@ -5,6 +5,8 @@ BROKER_HOME=/var/lib/artemis
 OVERRIDE_PATH=$BROKER_HOME/etc-override
 CONFIG_PATH=$BROKER_HOME/etc
 
+chown -R artemis.artemis ${BROKER_HOME}/data
+
 # In case this is running in a non standard system that automounts
 # empty volumes like OpenShift, restore the configuration into the 
 # volume
