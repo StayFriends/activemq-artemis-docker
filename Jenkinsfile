@@ -25,14 +25,15 @@ podTemplate(label: label, serviceAccount: 'jenkins', containers: [
         checkout scm
 
         container('client') {
-            def imageVersion = "2.5.0.${env.BUILD_NUMBER}"
+            def artemisVersion = "2.6.0"
+            def imageVersion = "${artemisVersion}.${env.BUILD_NUMBER}"
             def imageNamespace = "stayfriends"
             def imageName = "activemq-artemis"
             def newImageName = "${env.FABRIC8_DOCKER_REGISTRY_SERVICE_HOST}:${env.FABRIC8_DOCKER_REGISTRY_SERVICE_PORT}/${imageNamespace}/${imageName}:${imageVersion}"
 
             env.setProperty('VERSION',imageVersion)
 
-            sh "docker build -t ${newImageName} ."
+            sh "docker build --build-arg ACTIVEMQ_ARTEMIS_VERSION=${artemisVersion} -t ${newImageName} ."
             sh "docker push ${newImageName}"
         }
     }
