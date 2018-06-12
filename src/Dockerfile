@@ -68,7 +68,7 @@ RUN xmlstarlet ed -L -N amq="http://activemq.org/schema" \
 ## try to change path to console / jolokia
 RUN xmlstarlet ed -L -N amq="http://activemq.org/schema" \
     -u "//*/amq:app[@url='console']/@url" \
-    -v "/" bootstrap.xml
+    -v "" bootstrap.xml
 
 # In a similar fashion the jolokia access is restricted to localhost only. Disabling
 # this as in the natural environmnets for the image like Kubernetes this is problematic.
