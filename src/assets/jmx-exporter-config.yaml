@@ -19,3 +19,9 @@ rules:
     labels:
         address: $2
         "$5": $6
+  - pattern: "^org.apache.activemq.artemis<broker=\"([^\"]*)\",\\s*component=cluster-connections,\\s*name=\"([^\"]*)\"><>([^:]*):\\s(.*)"
+    attrNameSnakeCase: true
+    name: artemis_cluster_connections_$3
+    type: GAUGE
+    labels:
+        name: $2
