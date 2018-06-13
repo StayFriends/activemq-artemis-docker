@@ -65,10 +65,18 @@ RUN xmlstarlet ed -L -N amq="http://activemq.org/schema" \
     -u "/amq:broker/amq:web/@bind" \
     -v "http://0.0.0.0:8161" bootstrap.xml
 
-## try to change path to console / jolokia
+## #####################################################################################################################
+## TODO marker for SF customizing
+## (try to) change path to console / jolokia
 RUN xmlstarlet ed -L -N amq="http://activemq.org/schema" \
     -u "//*/amq:app[@url='console']/@url" \
     -v "" bootstrap.xml
+
+## remove hawtio.* JVM parameters and replace with other (disable auth)
+RUN sed -i "s/-Dhawtio\.[A-Za-z]*=[A-Za-z.\"]*//g" ../etc/artemis.profile
+RUN sed -i "s/JAVA_ARGS=\"/JAVA_ARGS=\"-Dhawtio.authenticationEnabled=false /g" ../etc/artemis.profile
+## TODO /
+## #####################################################################################################################
 
 # In a similar fashion the jolokia access is restricted to localhost only. Disabling
 # this as in the natural environmnets for the image like Kubernetes this is problematic.
