@@ -25,7 +25,7 @@ podTemplate(label: label, serviceAccount: 'jenkins', containers: [
         checkout scm
 
         container('client') {
-            def artemisVersion = "2.6.0"
+            def artemisVersion = "2.6.2"
             def imageVersion = "${artemisVersion}.${env.BUILD_NUMBER}"
             def imageNamespace = "stayfriends"
             def imageName = "activemq-artemis"
