@@ -1,6 +1,6 @@
 #!/usr/bin/groovy
-@Library('github.com/StayFriends/fabric8-pipeline-library@master')
-@Library('github.com/StayFriends/stayfriends-pipeline-library@master')
+@Library('fabric8-pipeline-library')
+@Library('stayfriends-pipeline-library')
 
 def utils = new io.fabric8.Utils()
 
