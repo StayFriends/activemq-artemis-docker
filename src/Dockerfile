@@ -67,10 +67,12 @@ RUN xmlstarlet ed -L -N amq="http://activemq.org/schema" \
 
 ## #####################################################################################################################
 ## TODO marker for SF customizing
+
+## commented out for standard path - try to reach the console outside of kubernetes using ingress
 ## (try to) change path to console / jolokia
-RUN xmlstarlet ed -L -N amq="http://activemq.org/schema" \
-    -u "//*/amq:app[@url='console']/@url" \
-    -v "" bootstrap.xml
+#RUN xmlstarlet ed -L -N amq="http://activemq.org/schema" \
+#    -u "//*/amq:app[@url='console']/@url" \
+#    -v "" bootstrap.xml
 
 ## remove hawtio.* JVM parameters and replace with other (disable auth)
 RUN sed -i "s/-Dhawtio\.[A-Za-z]*=[A-Za-z.\"]*//g" ../etc/artemis.profile
