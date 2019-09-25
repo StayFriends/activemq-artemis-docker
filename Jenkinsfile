@@ -7,16 +7,33 @@ def utils = new io.fabric8.Utils()
 
 def label = "buildpod.${env.JOB_NAME}.${env.BUILD_NUMBER}".replace('-', '_').replace('/', '_')
 
-podTemplate(label: label, serviceAccount: 'jenkins', containers: [
-    [name: 'client', image: 'fabric8/builder-clients', command: 'cat', ttyEnabled: true, envVars: [
-            [key: 'DOCKER_CONFIG', value: '/home/jenkins/.docker/'],
-            [key: 'KUBERNETES_MASTER', value: 'kubernetes.default']]],
-    [name: 'jnlp', image: 'iocanel/jenkins-jnlp-client:latest', command:'/usr/local/bin/start.sh', args: '${computer.jnlpmac} ${computer.name}', ttyEnabled: false,
-            envVars: [[key: 'DOCKER_HOST', value: 'unix:/var/run/docker.sock']]]],
+podTemplate(label: label, serviceAccount: 'jenkins',
+        containers: [
+                containerTemplate(
+                        name: 'client',
+                        image: 'fabric8/builder-clients',
+                        command: 'cat',
+                        ttyEnabled: true,
+                        envVars: [
+                                envVar(key: 'DOCKER_CONFIG', value: '/home/jenkins/.docker/'),
+                                envVar(key: 'KUBERNETES_MASTER', value: 'kubernetes.default')
+                        ]
+                ),
+                containerTemplate(
+                        name: 'jnlp',
+                        image: 'iocanel/jenkins-jnlp-client:latest',
+                        command:'/usr/local/bin/start.sh',
+                        args: '${computer.jnlpmac} ${computer.name}',
+                        ttyEnabled: false,
+                        envVars: [
+                                envVar(key: 'DOCKER_HOST', value: 'unix:/var/run/docker.sock')
+                        ]
+                )
+        ],
     volumes: [
-            [$class: 'SecretVolume', mountPath: '/home/jenkins/.docker', secretName: 'jenkins-docker-cfg'],
-            [$class: 'SecretVolume', mountPath: '/root/.ssh', secretName: 'jenkins-ssh-config'],
-            [$class: 'HostPathVolume', mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock']
+            secretVolume(mountPath: '/home/jenkins/.docker', secretName: 'jenkins-docker-cfg'),
+            secretVolume(mountPath: '/root/.ssh', secretName: 'jenkins-ssh-config'),
+            hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
     ]) {
 
     node(label) {
