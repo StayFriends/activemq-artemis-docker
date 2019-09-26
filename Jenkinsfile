@@ -21,7 +21,7 @@ podTemplate(label: label, serviceAccount: 'jenkins',
                 ),
                 containerTemplate(
                         name: 'jnlp',
-                        image: 'iocanel/jenkins-jnlp-client:latest',
+                        image: '10.3.0.169:80/f8/jenkins-jnlp-client',
                         command:'/usr/local/bin/start.sh',
                         args: '${computer.jnlpmac} ${computer.name}',
                         ttyEnabled: false,
